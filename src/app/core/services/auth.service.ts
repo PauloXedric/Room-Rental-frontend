@@ -1,5 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,7 +13,7 @@ export class AuthService {
   private jwtHelper = inject(JwtHelperService);
   public isLoggedIn$ = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router) {}
 
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.api.post<any>('UserAccount/login', credentials).pipe(

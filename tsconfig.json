@@ -20,6 +20,8 @@
       "@core": ["app/core/index.ts"],
       "@core/*": ["app/core/*"],
       "@features/*": ["app/features/*"],
+      "@features/admin": ["app/features/components/_administrator/index.ts"],
+      "@features/tenant": ["app/features/components/_tenant/index.ts"],
       "@shared/*": ["app/shared/*"]
     }
   },
