@@ -1,0 +1,45 @@
+<p-dialog
+  header="Edit Room Pricing"
+  [(visible)]="visible"
+  [closable]="false"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="form" (ngSubmit)="onSave()">
+    <div class="form-columns">
+      <div class="form-column">
+        <p-floatLabel>
+          <p-inputNumber
+            formControlName="monthlyPrice"
+            [min]="0"
+            mode="currency"
+            currency="PHP"
+          ></p-inputNumber>
+          <label>Monthly Price</label>
+        </p-floatLabel>
+      </div>
+      <div class="form-column">
+        <p-floatLabel>
+          <p-inputNumber
+            formControlName="depositAmount"
+            [min]="0"
+            mode="currency"
+            currency="PHP"
+          ></p-inputNumber>
+          <label>Deposit Amount</label>
+        </p-floatLabel>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="onCancel()"
+      ></p-button>
+      <p-button label="Save" icon="pi pi-check" type="submit"></p-button>
+    </div>
+  </form>
+</p-dialog>

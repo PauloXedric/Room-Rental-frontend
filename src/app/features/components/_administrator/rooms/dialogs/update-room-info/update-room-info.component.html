@@ -1,0 +1,92 @@
+<p-dialog
+  header="Edit Room Info"
+  [(visible)]="visible"
+  [closable]="false"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="form" (ngSubmit)="onSave()">
+    <div class="form-columns">
+      <div class="form-column">
+        <p-floatLabel>
+          <input pInputText formControlName="roomName" />
+          <label>Room Name</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <textarea pTextarea formControlName="description"></textarea>
+          <label>Description</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <p-select
+            formControlName="roomType"
+            [options]="roomTypeOptions"
+            optionLabel="label"
+            optionValue="value"
+          ></p-select>
+          <label>Room Type</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <p-inputNumber
+            formControlName="numberOfBeds"
+            [min]="0"
+          ></p-inputNumber>
+          <label>Number of Beds</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <p-inputNumber
+            formControlName="maxOccupants"
+            [min]="0"
+          ></p-inputNumber>
+          <label>Max Occupants</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <p-select
+            formControlName="genderRestriction"
+            [options]="genderRestrictionOptions"
+            optionLabel="label"
+            optionValue="value"
+          ></p-select>
+          <label>Gender Restriction</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="form-column">
+        <p-floatLabel>
+          <input pInputText formControlName="roomAddress" />
+          <label>Room Address</label>
+        </p-floatLabel>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="onCancel()"
+      ></p-button>
+      <p-button
+        label="Save"
+        icon="pi pi-check"
+        type="submit"
+        [disabled]="form.invalid"
+      ></p-button>
+    </div>
+  </form>
+</p-dialog>
