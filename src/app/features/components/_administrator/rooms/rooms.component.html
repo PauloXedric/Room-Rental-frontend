@@ -1,0 +1,268 @@
+<div class="rooms-container">
+  <p-dataview
+    [value]="rooms"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    (onPage)="onPageChange($event)"
+    [rows]="pageSize"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    layout="grid"
+  >
+    <ng-template #grid let-items>
+      <div class="rooms-grid">
+        <div *ngFor="let room of items" class="room-card">
+          <div class="room-card-header">
+            <h3 class="room-title">{{ room.roomName }}</h3>
+            <p-tag
+              [value]="room.isAvailable ? 'Available' : 'Unavailable'"
+              [styleClass]="
+                room.isAvailable ? 'available-tag' : 'unavailable-tag'
+              "
+            ></p-tag>
+          </div>
+
+          <div class="room-address">{{ room.roomAddress }}</div>
+
+          <div class="room-description">
+            {{ room.description || "No description provided." }}
+          </div>
+
+          <div class="room-stats">
+            <div class="stat-item">
+              <span class="stat-label">Type</span>
+              <span class="stat-value">{{ room.roomType || "N/A" }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Beds</span>
+              <span class="stat-value">{{ room.numberOfBeds || 0 }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Max Occupants</span>
+              <span class="stat-value">{{ room.maxOccupants || 0 }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Current</span>
+              <span class="stat-value">{{
+                room.currentOccupantsCount || 0
+              }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Restriction</span>
+              <span class="stat-value">{{
+                room.genderRestriction || "None"
+              }}</span>
+            </div>
+          </div>
+
+          <div class="room-price-section">
+            <div class="price">
+              ₱{{ room.monthlyPrice | number : "1.2-2" }}
+              <span class="per-month">/month</span>
+            </div>
+            <div class="deposit">
+              Deposit: ₱{{ room.depositAmount | number : "1.2-2" }}
+            </div>
+          </div>
+
+          <p-button
+            label="Edit Info"
+            icon="pi pi-pencil"
+            styleClass="p-button-sm p-button-rounded edit-info-button"
+            (click)="openEditInfoDialog(room)"
+          ></p-button>
+
+          <p-button
+            label="Edit Pricing"
+            icon="pi pi-money-bill"
+            styleClass="p-button-sm p-button-rounded edit-pricing-button"
+            (click)="openEditPricingDialog(room)"
+          ></p-button>
+
+          <p-button
+            label="Delete"
+            icon="pi pi-trash"
+            styleClass="p-button-sm p-button-rounded p-button-danger"
+            (click)="confirmDeleteRoom(room.roomId)"
+          ></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataview>
+  <div class="total-records-info">
+    There {{ totalRecords === 1 ? "is" : "are" }} currently
+    <strong>{{ totalRecords }}</strong>
+    {{ totalRecords === 1 ? "room" : "rooms" }} in total.
+  </div>
+
+  <div class="manage-section">
+    <h3>Add New Room</h3>
+
+    <form [formGroup]="addRoomForm" (ngSubmit)="addNewRoom()">
+      <p-fluid>
+        <div class="form-columns">
+          <div class="form-column">
+            <p-inputGroup>
+              <p-inputGroupAddon><i class="pi pi-home"></i></p-inputGroupAddon>
+              <p-floatLabel variant="on">
+                <input
+                  pInputText
+                  id="roomName"
+                  formControlName="roomName"
+                  autocomplete="off"
+                />
+                <label for="roomName">Room Name</label>
+              </p-floatLabel>
+            </p-inputGroup>
+          </div>
+
+          <div class="form-column">
+            <p-inputGroup>
+              <p-inputGroupAddon
+                ><i class="pi pi-align-left"></i
+              ></p-inputGroupAddon>
+              <p-floatLabel variant="on">
+                <textarea
+                  pTextarea
+                  id="description"
+                  formControlName="description"
+                  rows="3"
+                ></textarea>
+                <label for="description">Description</label>
+              </p-floatLabel>
+            </p-inputGroup>
+          </div>
+
+          <div class="form-column">
+            <p-floatLabel variant="on">
+              <p-select
+                id="roomType"
+                formControlName="roomType"
+                [options]="roomTypeOptions"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+              ></p-select>
+              <label for="roomType">Room Type</label>
+            </p-floatLabel>
+          </div>
+
+          <div class="form-column">
+            <p-inputNumber
+              formControlName="numberOfBeds"
+              [min]="0"
+              [showButtons]="true"
+              placeholder="Beds"
+            ></p-inputNumber>
+          </div>
+
+          <div class="form-column">
+            <p-inputNumber
+              formControlName="maxOccupants"
+              [min]="0"
+              [showButtons]="true"
+              placeholder="Max Occupants"
+            ></p-inputNumber>
+          </div>
+
+          <div class="form-column">
+            <p-floatLabel variant="on">
+              <p-select
+                id="genderRestriction"
+                formControlName="genderRestriction"
+                [options]="genderRestrictionOptions"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+              ></p-select>
+              <label for="genderRestriction">Gender Restriction</label>
+            </p-floatLabel>
+          </div>
+
+          <div class="form-column">
+            <p-inputGroup>
+              <p-inputGroupAddon
+                ><i class="pi pi-map-marker"></i
+              ></p-inputGroupAddon>
+              <p-floatLabel variant="on">
+                <input
+                  pInputText
+                  id="roomAddress"
+                  formControlName="roomAddress"
+                />
+                <label for="roomAddress">Address</label>
+              </p-floatLabel>
+            </p-inputGroup>
+          </div>
+
+          <div class="form-column">
+            <p-inputNumber
+              formControlName="monthlyPrice"
+              [min]="0"
+              mode="currency"
+              currency="PHP"
+              placeholder="Monthly Price"
+            ></p-inputNumber>
+          </div>
+
+          <div class="form-column">
+            <p-inputNumber
+              formControlName="depositAmount"
+              [min]="0"
+              mode="currency"
+              currency="PHP"
+              placeholder="Deposit Amount"
+            ></p-inputNumber>
+          </div>
+
+          <div class="form-column">
+            <p-floatLabel>
+              <p-datepicker
+                formControlName="availableStartDate"
+                [showIcon]="true"
+                inputId="availableStartDate"
+                [iconDisplay]="'input'"
+              />
+              <label for="availableStartDate"
+                >Available Start <i class="fas fa-dolly-flatbed-alt"></i
+              ></label>
+            </p-floatLabel>
+          </div>
+        </div>
+      </p-fluid>
+
+      <div class="form-actions" style="margin-top: 1rem; text-align: right">
+        <p-button
+          label="Save Room"
+          icon="pi pi-check"
+          severity="success"
+          type="submit"
+          [disabled]="addRoomForm.invalid"
+        ></p-button>
+        <p-button
+          label="Reset"
+          icon="pi pi-refresh"
+          severity="secondary"
+          type="button"
+          (onClick)="addRoomForm.reset()"
+          styleClass="p-button-text"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-update-room-info
+  [room]="currentRoom"
+  [visible]="editInfoDialogVisible"
+  (saveUpdateRoomInfo)="updateRoomInfo($event)"
+  (cancelUpdateRoomInfo)="editInfoDialogVisible = false"
+></app-update-room-info>
+
+<app-update-room-pricing
+  [room]="currentRoom"
+  [visible]="editPricingDialogVisible"
+  (saveUpdateRoomPricing)="
+    updateRoomPrice($event); editPricingDialogVisible = false
+  "
+  (cancelUpdateRoomPricing)="editPricingDialogVisible = false"
+></app-update-room-pricing>

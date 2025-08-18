@@ -1,0 +1,197 @@
+.rooms-container {
+  background-color: #fcf8f3;
+  padding: 2rem;
+  font-family: "Segoe UI", sans-serif;
+  color: #4a2f1d;
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.room-card {
+  background: #fffdf9;
+  border-radius: 14px;
+  padding: 1.3rem;
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+}
+
+.room-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.room-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #8b4513;
+}
+
+p-tag.available-tag {
+  background-color: #dbe8d8;
+  color: #3b7a3b;
+  font-weight: 600;
+}
+
+p-tag.unavailable-tag {
+  background-color: #f8d8d8;
+  color: #a94442;
+  font-weight: 600;
+}
+
+.room-address {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8b4513;
+  margin-bottom: 0.6rem;
+}
+
+.room-description {
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: #4a2f1d;
+  margin-bottom: 1.2rem;
+  line-height: 1.55;
+}
+
+.room-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 110px;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #8b4513;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #4a2f1d;
+  margin-top: 0.15rem;
+}
+
+.room-price-section {
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid #8b4513;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #8b4513;
+}
+
+.per-month {
+  font-size: 0.9rem;
+  color: #6b4f3b;
+}
+
+.deposit {
+  font-size: 0.92rem;
+  color: #5a3b2c;
+  margin-top: 0.3rem;
+}
+
+.room-actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.view-button {
+  background: #8b4513;
+  border: none;
+  color: #fff;
+}
+
+.view-button:hover {
+  background: #a0522d;
+}
+
+.manage-section {
+  margin-top: 2.5rem;
+  padding: 1.8rem;
+  border-radius: 14px;
+  background: #fff8f2;
+  border: 1px solid #8b4513;
+  box-shadow: 0 3px 10px rgba(139, 69, 19, 0.06);
+}
+
+.manage-section h3 {
+  color: #8b4513;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.total-records-info {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.room-card {
+  background-color: #fff8f0;
+  border: 1px solid #8b4513;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .room-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .room-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .edit-info-button {
+      background-color: #8b4513;
+      color: #fff;
+    }
+
+    .edit-pricing-button {
+      background-color: #d2691e;
+      color: #fff;
+    }
+  }
+}
+
+.p-dialog .p-button {
+  border-radius: 0.5rem;
+}
+
+.p-dialog .p-inputText,
+.p-dialog .p-inputNumber,
+.p-dialog .p-select {
+  width: 100%;
+  margin-bottom: 1rem;
+}
