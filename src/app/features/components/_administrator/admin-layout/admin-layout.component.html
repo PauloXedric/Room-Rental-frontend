@@ -1,0 +1,37 @@
+<div
+  class="sidenav"
+  [ngClass]="isLeftSidebarCollapsed ? 'sidenav-collapsed' : ''"
+>
+  <div class="logo-container">
+    <p-button
+      icon="pi pi-bars"
+      (onClick)="toggleCollapse()"
+      class="logo-btn"
+      severity="secondary"
+      text
+      rounded
+    ></p-button>
+
+    <ng-container *ngIf="!isLeftSidebarCollapsed">
+      <div class="logo-text">App</div>
+    </ng-container>
+  </div>
+
+  <div class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let item of items; index as i">
+      <a
+        class="sidenav-nav-link"
+        [routerLink]="item.routeLink"
+        routerLinkActive="active"
+        (click)="item.command?.($event)"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        <span class="sidenav-link-text" *ngIf="!isLeftSidebarCollapsed">{{
+          item.label
+        }}</span>
+      </a>
+    </li>
+  </div>
+</div>
+<p-confirmpopup></p-confirmpopup>
