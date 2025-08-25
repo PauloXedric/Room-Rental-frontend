@@ -13,7 +13,7 @@
     ></p-button>
 
     <ng-container *ngIf="!isLeftSidebarCollapsed">
-      <div class="logo-text">Admin</div>
+      <div class="logo-text">Tenant</div>
     </ng-container>
   </div>
 
@@ -21,15 +21,18 @@
     <li class="sidenav-nav-item" *ngFor="let item of items; index as i">
       <a
         class="sidenav-nav-link"
-        [routerLink]="item.routeLink"
+        [routerLink]="!item.disabled ? item.routeLink : null"
         routerLinkActive="active"
-        (click)="item.command?.($event)"
+        (click)="!item.disabled && item.command?.($event)"
         [routerLinkActiveOptions]="{ exact: true }"
+        [class.disabled]="item.disabled"
+        [attr.aria-disabled]="item.disabled"
+        [attr.tabindex]="item.disabled ? -1 : 0"
       >
         <i class="sidenav-link-icon" [class]="item.icon"></i>
-        <span class="sidenav-link-text" *ngIf="!isLeftSidebarCollapsed">{{
-          item.label
-        }}</span>
+        <span class="sidenav-link-text" *ngIf="!isLeftSidebarCollapsed">
+          {{ item.label }}
+        </span>
       </a>
     </li>
   </div>

@@ -29,7 +29,6 @@ export class AdminLayoutComponent {
       routeLink: [RoutePathEnum.Admin, RoutePathEnum.AdminDashboard],
       icon: PrimeIcons.HOME,
     },
-
     {
       label: 'Rooms',
       routeLink: [RoutePathEnum.Admin, RoutePathEnum.AdminRooms],
