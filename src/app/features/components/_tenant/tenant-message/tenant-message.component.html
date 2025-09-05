@@ -1,0 +1,46 @@
+<p-panel header="Conversation with Landlord" styleClass="tenant-chat-panel">
+  <p-scrollPanel style="height: 400px" id="messagePanel">
+    <div
+      *ngFor="let msg of messages"
+      class="message-row"
+      [ngClass]="{
+        sent: msg.isSentByCurrentUser,
+        received: !msg.isSentByCurrentUser
+      }"
+    >
+      <p-avatar
+        *ngIf="!msg.isSentByCurrentUser"
+        label="L"
+        styleClass="avatar"
+      ></p-avatar>
+      <div class="message-bubble">{{ msg.message }}</div>
+      <p-avatar
+        *ngIf="msg.isSentByCurrentUser"
+        label="T"
+        styleClass="avatar right"
+      ></p-avatar>
+    </div>
+  </p-scrollPanel>
+
+  <form
+    [formGroup]="messageForm"
+    class="message-input"
+    (ngSubmit)="sendMessage()"
+  >
+    <textarea
+      rows="5"
+      cols="30"
+      pTextarea
+      placeholder="Type your message..."
+      formControlName="message"
+      class="message-textarea"
+    ></textarea>
+
+    <p-button
+      label="Send"
+      type="submit"
+      icon="pi pi-send"
+      [disabled]="messageForm.invalid"
+    ></p-button>
+  </form>
+</p-panel>
